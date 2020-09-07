@@ -1,7 +1,4 @@
 FROM tensorflow/tensorflow:1.12.0-gpu-py3 
-#FROM python:3.6
-#FROM nvidia/cuda:9.1-runtime-ubuntu16.04
-
 
 # install git
 RUN apt-get update && \
@@ -13,13 +10,12 @@ RUN apt-get update && \
 RUN git clone https://github.com/KarimMibrahim/user-aware-music-autotagging.git /src_code/repo
 ENV PYTHONPATH=$PYTHONPATH:/src_code/repo
 
-# install anaconda
-#ENV PATH /opt/conda/bin:$PATH
-#COPY install_miniconda.sh .
-#RUN bash ./install_miniconda.sh && rm install_miniconda.sh
-
-# Downgrade to cudatoolkit 9.0 for compatibility reasons
-#RUN conda install -y -c conda-forge cudatoolkit=9.0
+# download the dataset
+RUN apt-get install wget 
+RUN wget -P /src_code/repo/GroundTruth/ https://zenodo.org/record/3961560/files/test_set.csv
+RUN wget -P /src_code/repo/GroundTruth/ https://zenodo.org/record/3961560/files/train_set.csv
+RUN wget -P /src_code/repo/GroundTruth/ https://zenodo.org/record/3961560/files/user_embeddings.csv
+RUN wget -P /src_code/repo/GroundTruth/ https://zenodo.org/record/3961560/files/validation_set.csv
 
 # install requirements
 COPY requirements.txt requirements.txt

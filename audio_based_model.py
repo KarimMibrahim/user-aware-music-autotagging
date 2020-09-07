@@ -181,7 +181,7 @@ def main():
     print("Current Experiment: " + EXPERIMENTNAME + "\n\n\n")
     # Loading datasets
     # TODO: fix directories
-    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_multilabeel.csv"))
+    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_multilabel.csv"))
     val_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/validation_multilabel.csv"))
 
     # Setting up model
