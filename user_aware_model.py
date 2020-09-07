@@ -32,8 +32,8 @@ LABELS_LIST = ['car', 'gym', 'happy', 'night', 'relax',
        'running', 'sad', 'summer', 'work', 'workout']
 
 # [TODO] Edit directories to match machine
-global_labels = pd.read_csv("/src_code/repo/GroundTruth/all_labels_clipped.csv")
-train_partial = pd.read_csv("/src_code/repo/GroundTruth/train_single.csv")
+global_labels = pd.read_csv("/src_code/repo/GroundTruth/single_label_all.csv")
+train_partial = pd.read_csv("/src_code/repo/GroundTruth/train_set.csv")
 POS_WEIGHTS = len(train_partial)/train_partial.sum()[2:]
 POS_WEIGHTS = [np.float32(x) for x in POS_WEIGHTS]
 
@@ -194,8 +194,8 @@ def main():
     print("Current Experiment: " + EXPERIMENTNAME + "\n\n\n")
     # Loading datasets
     # TODO: fix directories
-    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_single.csv"))
-    val_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/validation_single.csv"))
+    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_set.csv"))
+    val_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/validation_set.csv"))
 
     # Setting up model
     y = tf.placeholder(tf.float32, [None, len(LABELS_LIST)], name="true_labels")
@@ -343,8 +343,8 @@ def main():
         saver.restore(sess, os.path.join(extra_exp_dir, "best_validation.ckpt"))
         print("Model with best validation restored before testing.")
 
-        test_labels = pd.read_csv(os.path.join(SOURCE_PATH, "GroundTruth/test_single.csv"))
-        test_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/test_single.csv"), shuffle = False)
+        test_labels = pd.read_csv(os.path.join(SOURCE_PATH, "GroundTruth/test_set.csv"))
+        test_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/test_set.csv"), shuffle = False)
         test_classes = np.zeros_like(test_labels.iloc[:, 2:].values, dtype=float)
         # test_images, test_classes = load_test_set_raw(test_split)
 

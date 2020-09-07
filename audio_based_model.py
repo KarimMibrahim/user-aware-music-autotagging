@@ -23,13 +23,13 @@ SOURCE_PATH = "/src_code/repo/"
 OUTPUT_PATH = "/src_code/repo/experiments_results/"
 EXTRA_OUTPUTS = "/src_code/repo/extra_experiment_results"
 
-EXPERIMENTNAME = "audio_model_multilabel"
+EXPERIMENTNAME = "audio_system_multilabel"
 INPUT_SHAPE = (646, 96, 1)
 LABELS_LIST = ['car', 'gym', 'happy', 'night', 'relax',
        'running', 'sad', 'summer', 'work', 'workout']
 
-global_labels = pd.read_csv("/src_code/repo/GroundTruth/all_multipllized.csv")
-train_partial = pd.read_csv("/src_code/repo/GroundTruth/train_single_multipllized.csv")
+global_labels = pd.read_csv("/src_code/repo/GroundTruth/multilabel_all.csv")
+train_partial = pd.read_csv("/src_code/repo/GroundTruth/train_multilabel.csv")
 POS_WEIGHTS = len(train_partial)/train_partial.sum()[1:]
 POS_WEIGHTS = [np.float32(x) for x in POS_WEIGHTS]
 
@@ -181,8 +181,8 @@ def main():
     print("Current Experiment: " + EXPERIMENTNAME + "\n\n\n")
     # Loading datasets
     # TODO: fix directories
-    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_single_multipllized.csv"))
-    val_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/validation_single_multipllized.csv"))
+    training_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/train_multilabeel.csv"))
+    val_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/validation_multilabel.csv"))
 
     # Setting up model
     y = tf.placeholder(tf.float32, [None, len(LABELS_LIST)], name="true_labels")
@@ -312,8 +312,8 @@ def main():
         saver.restore(sess, os.path.join(extra_exp_dir, "best_validation.ckpt"))
         print("Model with best validation restored before testing.")
 
-        test_labels = pd.read_csv(os.path.join(SOURCE_PATH, "GroundTruth/test_single_multipllized.csv"))
-        test_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/test_single_multipllized.csv"), shuffle = True)
+        test_labels = pd.read_csv(os.path.join(SOURCE_PATH, "GroundTruth/test_multilabel.csv"))
+        test_dataset = get_dataset(os.path.join(SOURCE_PATH, "GroundTruth/test_multilabel.csv"), shuffle = True)
         test_classes = np.zeros_like(test_labels.iloc[:, 1:].values, dtype=float)
         # test_images, test_classes = load_test_set_raw(test_split)
 

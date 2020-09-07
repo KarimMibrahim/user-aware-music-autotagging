@@ -15,7 +15,7 @@ sn.set(font_scale=2)  # for label size
 
 # [TODO] Edit directories to match machine
 SPECTROGRAMS_PATH = "/src_code/repo/spectrograms/"
-USER_EMBEDDINGS_MATRIX = pd.read_pickle("/src_code/repo/GroundTruth/user_embeddings.pkl")
+USER_EMBEDDINGS_MATRIX = pd.read_csv("/src_code/repo/GroundTruth/user_embeddings.csv")
 
 
 def limit_memory_usage(gpu_memory_fraction=0.1):
