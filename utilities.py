@@ -14,8 +14,8 @@ pd.option_context('display.float_format', '{:0.2f}'.format)
 sn.set(font_scale=2)  # for label size
 
 # [TODO] Edit directories to match machine
-SPECTROGRAMS_PATH = "/srv/workspace/research/user_based_contexts_tagging/dataset/"
-USER_EMBEDDINGS_MATRIX = pd.read_pickle("/srv/workspace/research/user_based_contexts_tagging/GroundTruth/user_embeddings.pkl")
+SPECTROGRAMS_PATH = "/src_code/repo/spectrograms/"
+USER_EMBEDDINGS_MATRIX = pd.read_pickle("/src_code/repo/GroundTruth/user_embeddings.pkl")
 
 
 def limit_memory_usage(gpu_memory_fraction=0.1):

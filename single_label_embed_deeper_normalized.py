@@ -21,9 +21,9 @@ plt.rcParams.update({'font.size': 22})
 os.environ["CUDA_VISIBLE_DEVICES"]="2"
 
 # [TODO] Edit directories to match machine
-SOURCE_PATH = "/srv/workspace/research/user_based_contexts_tagging/"
-OUTPUT_PATH = "/srv/workspace/research/user_based_contexts_tagging/experiments_results/"
-EXTRA_OUTPUTS = "/srv/workspace/research/extra_experiment_results"
+SOURCE_PATH = "/src_code/repo/"
+OUTPUT_PATH = "/src_code/repo/experiments_results/"
+EXTRA_OUTPUTS = "/src_code/repo/extra_experiment_results"
 
 EXPERIMENTNAME = "user_aware_system"
 INPUT_SHAPE = (646, 96, 1)
@@ -31,8 +31,9 @@ EMBEDDINGS_DIM = 256
 LABELS_LIST = ['car', 'gym', 'happy', 'night', 'relax',
        'running', 'sad', 'summer', 'work', 'workout']
 
-global_labels = pd.read_csv("/srv/workspace/research/user_based_contexts_tagging/GroundTruth/all_labels_clipped.csv")
-train_partial = pd.read_csv("/srv/workspace/research/user_based_contexts_tagging/GroundTruth/train_single.csv")
+# [TODO] Edit directories to match machine
+global_labels = pd.read_csv("/src_code/repo/GroundTruth/all_labels_clipped.csv")
+train_partial = pd.read_csv("/src_code/repo/GroundTruth/train_single.csv")
 POS_WEIGHTS = len(train_partial)/train_partial.sum()[2:]
 POS_WEIGHTS = [np.float32(x) for x in POS_WEIGHTS]
 

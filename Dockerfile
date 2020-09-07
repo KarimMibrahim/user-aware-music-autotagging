@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 
 # clone inside image github repository
-RUN git clone https://github.com/KarimMibrahim/context_classification_cnn /src_code/repo
+RUN git clone https://github.com/KarimMibrahim/user-aware-music-autotagging.git /src_code/repo
 ENV PYTHONPATH=$PYTHONPATH:/src_code/repo
 
 
@@ -19,7 +19,5 @@ COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN rm requirements.txt
-
-ENV CUDA_VISIBLE_DEVICES=3
 
 
