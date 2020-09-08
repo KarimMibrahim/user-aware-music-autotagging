@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sn
+import ast
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score, f1_score, cohen_kappa_score
 from sklearn.model_selection import train_test_split
 from sklearn.utils import check_random_state
@@ -105,7 +106,7 @@ def load_spectrogram_tf(sample, identifier_key="song_id",
 def get_embeddings_py(sample_user_id):
     user_embeddings = USER_EMBEDDINGS_MATRIX[USER_EMBEDDINGS_MATRIX.user_id == sample_user_id]
     samples_user_embeddings = user_embeddings.iloc[:, 1:].values.flatten()
-    samples_user_embeddings = np.asarray(samples_user_embeddings[0])
+    samples_user_embeddings = np.asarray(ast.literal_eval(samples_user_embeddings[0]))
     samples_user_embeddings = samples_user_embeddings.astype(np.float32)
     return samples_user_embeddings
 
