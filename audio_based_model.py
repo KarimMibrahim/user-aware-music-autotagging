@@ -244,7 +244,6 @@ def main():
     saver = tf.train.Saver()
 
     epoch_losses_history, epoch_accurcies_history, val_losses_history, val_accuracies_history = [], [], [], []
-    my_loss_history, my_loss_val_history = [], []
     with tf.Session() as sess:
         # Write summaries to LOG_DIR -- used by TensorBoard
         train_writer = tf.summary.FileWriter(extra_exp_dir + '/tensorboard/train', graph=tf.get_default_graph())
@@ -253,7 +252,6 @@ def main():
         sess.run(tf.global_variables_initializer())
         for epoch in range(NUM_EPOCHS):
             batch_loss, batch_accuracy = np.zeros([TRAINING_STEPS, 1]), np.zeros([TRAINING_STEPS, 1])
-            batch_my_loss, val_my_loss = np.zeros([TRAINING_STEPS, 1]), np.zeros([VALIDATION_STEPS, 1])
             val_accuracies, val_losses = np.zeros([VALIDATION_STEPS, 1]), np.zeros([VALIDATION_STEPS, 1])
             for batch_counter in range(TRAINING_STEPS):
                 batch = sess.run(training_next_element)
@@ -263,11 +261,9 @@ def main():
                     feed_dict={current_keep_prob: 0.3, x_input: batch[0], y: batch_labels,
                                train_phase: True})
             print("Epoch #{}".format(epoch + 1), "Loss: {:.4f}".format(np.mean(batch_loss)),
-                  "My_loss: {:.4f}".format(np.mean(batch_my_loss)),
                   "accuracy: {:.4f}".format(np.mean(batch_accuracy)))
             epoch_losses_history.append(np.mean(batch_loss));
             epoch_accurcies_history.append(np.mean(batch_accuracy))
-            my_loss_history.append(np.mean(batch_my_loss))
             # Add to summaries
             train_writer.add_summary(summary, epoch)
 
@@ -284,7 +280,6 @@ def main():
                   "validation accuracy: {:.4f}".format(np.mean(val_accuracies)))
             val_losses_history.append(np.mean(val_losses));
             val_accuracies_history.append(np.mean(val_accuracies))
-            my_loss_val_history.append(np.mean(val_my_loss))
             test_writer.add_summary(summary, epoch)
 
             # If validation loss is an improvement over best-known.

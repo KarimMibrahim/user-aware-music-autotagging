@@ -48,17 +48,21 @@ python user_aware_model.py
 ```
 The model evaluation results exist in the output directory in 'src_code/repo/experiment_results/user_aware_system/[EXPERIMENT_DATE]'
 
+7. Run the pretrained multi-label audio model on the single label groundtruth case
+```
+python generate_single_label_audio_output.py
+```
+**Note:** must edit the diretory to match the trained model in your machine 'marked with [TODO]'
 
-7. For the evaluation protocols, first start the jupyter notebook with: 
+8. For displaying the results, first start the jupyter notebook with: 
 ```
 jupyter notebook --allow-root --ip=$(awk 'END{print $1}' /etc/hosts) --no-browser --NotebookApp.token= &
 ```
-Then access the notebook through the designated port and run all code blocks in order of the following notebooks
-- Generate_single_label_audio_output.ipynb. **Note:** must edit the diretory to match the trained model in your machine 'marked with [TODO]'
+Then access the notebook through the designated port and run all code blocks in order of the following notebook
 - Extra_evaluation_protocols.ipynb
-This will produce the two additional evaluation protocols of the audio model MO-SG and SO-SG. 
+This will compute and display the results for the audio model (MO-MG MO-SG and SO-SG), as well as the user model results. 
 
-8. For the user-satisfaction evaluation, run the code in the notebook 'Per-user evaluation.ipynb'.
+9. For the user-satisfaction evaluation, run the code in the notebook 'Per-user evaluation.ipynb'.
 
 ## Items 
 This repository contains the following item: 
@@ -66,7 +70,7 @@ This repository contains the following item:
 - '**user_aware_model.py**' the script for training the user-aware model.
 - '**Preprocess_dataset_labels.py**' the script to generate the multi-label dataset for the audio model.
 - '**utilities.py**' script containing utility functions used for both models.
-- '**Generate_single_label_audio_output.ipynb**' rerun the pretrained audio model on the single-label dataset.
+- '**generate_single_label_audio_output.py**' rerun the pretrained audio model on the single-label dataset.
 - '**Extra_evaluation_protocols.ipynb**' generates the evaluation results for the MO-SG and SO-SG protocols.
 - '**Per-user evaluation.ipynb**' generates the user-satisfaction evaluation results. 
 - '**requirements.txt**' contains the required packages to run the code. Only needed in case docker is not used.   
